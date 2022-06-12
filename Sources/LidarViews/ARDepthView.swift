@@ -6,12 +6,16 @@ import LidarProviders
 
 //- Tag: ARDepthView
 public struct ARDepthView: UIViewRepresentable {
-    public var arProvider: LidarProviders.ARProvider
+    public var arProvider: ARProvider
     #if DEBUG
     @EnvironmentObject public var debugData: LidarProviders.DepthData
     #endif
     
-    public func makeCoordinator() -> LidarProviders.ARReceiver {
+    public init(arProvider: ARProvider) {
+        self.arProvider = arProvider
+    }
+    
+    public func makeCoordinator() -> ARReceiver {
         #if DEBUG
         arProvider.debugData = debugData
         #endif
