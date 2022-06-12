@@ -9,7 +9,7 @@ import Foundation
 import Metal
 
 public class EnvironmentVariables {
-    static let shared: EnvironmentVariables = {
+    public static let shared: EnvironmentVariables = {
        let instance = EnvironmentVariables()
         return instance
     }()

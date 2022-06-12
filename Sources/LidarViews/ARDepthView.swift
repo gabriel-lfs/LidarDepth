@@ -5,13 +5,13 @@ import LidarProviders
 
 
 //- Tag: ARDepthView
-struct ARDepthView: UIViewRepresentable {
+public struct ARDepthView: UIViewRepresentable {
     public var arProvider: LidarProviders.ARProvider
     #if DEBUG
     @EnvironmentObject public var debugData: LidarProviders.DepthData
     #endif
     
-    func makeCoordinator() -> LidarProviders.ARReceiver {
+    public func makeCoordinator() -> LidarProviders.ARReceiver {
         #if DEBUG
         arProvider.debugData = debugData
         #endif
@@ -19,7 +19,7 @@ struct ARDepthView: UIViewRepresentable {
         return arProvider.arReceiver
     }
     
-    func makeUIView(context: UIViewRepresentableContext<ARDepthView>) -> ARView {
+    public func makeUIView(context: UIViewRepresentableContext<ARDepthView>) -> ARView {
         let arView = arProvider.arView
         
         arView.session.delegate = context.coordinator
@@ -39,7 +39,7 @@ struct ARDepthView: UIViewRepresentable {
         return arView
     }
     
-    func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<ARDepthView>) {
+    public func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<ARDepthView>) {
         
     }
 }
