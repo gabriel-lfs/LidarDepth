@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import ARKit
 import MetalKit
+import LidarExtensions
 
 // Receive the newest AR data from an `ARReceiver`.
 protocol ARDataReceiver: AnyObject {
@@ -18,7 +19,7 @@ protocol ARDataReceiver: AnyObject {
 
 //- Tag: ARData
 // Store depth-related AR data.
-final class ARData {
+public final class ARData {
     var depthMap: CVPixelBuffer?
     var anchors: [ARMeshAnchor]?
     var capturedImage: CVPixelBuffer?
@@ -27,7 +28,7 @@ final class ARData {
 }
 
 // Configure and run an AR session to provide the app with depth-related AR data.
-final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelegate {
+public final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelegate {
     var arData = ARData()
     var arSession: ARSession
     weak var delegate: ARDataReceiver?
@@ -147,7 +148,7 @@ final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelegate {
         return SCNScene(mdlAsset: asset)
     }
     
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+    public func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if(frame.sceneDepth != nil) {
             arData.depthMap = frame.sceneDepth!.depthMap
             arData.anchors = frame.anchors.compactMap({ $0 as? ARMeshAnchor })

@@ -1,7 +1,7 @@
 import Foundation
 import RealityKit
 
-extension Transform {
+public extension Transform {
     static func * (left: Transform, right: Transform) -> Transform {
         Transform(matrix: simd_mul(left.matrix, right.matrix))
     }

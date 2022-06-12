@@ -3,7 +3,7 @@ import Accelerate
 /**
     Classe para trabalhar com dados de profundidade
  */
-class DepthData: ObservableObject {
+public class DepthData: ObservableObject {
     private var data = Array(repeating: Array(repeating: Float(-1), count: 192), count: 256)
     private let matrixSize = Float(96*256)
     

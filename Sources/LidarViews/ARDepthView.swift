@@ -1,17 +1,21 @@
 import Foundation
 import SwiftUI
 import RealityKit
+import LidarProviders
 
 
 //- Tag: ARDepthView
 struct ARDepthView: UIViewRepresentable {
-    var arProvider: ARProvider
+    var arProvider: LidarProviders.ARProvider
     #if DEBUG
-    @EnvironmentObject var debugData: DepthData
+    @EnvironmentObject public var debugData: LidarProviders.DepthData
     #endif
     
-    func makeCoordinator() -> ARReceiver {
+    func makeCoordinator() -> LidarProviders.ARReceiver {
+        #if DEBUG
         arProvider.debugData = debugData
+        #endif
+        
         return arProvider.arReceiver
     }
     

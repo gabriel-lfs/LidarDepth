@@ -8,7 +8,7 @@ A utility singleton class that holds a single MTLDevice for the app.
 import Foundation
 import Metal
 
-class EnvironmentVariables {
+public class EnvironmentVariables {
     static let shared: EnvironmentVariables = {
        let instance = EnvironmentVariables()
         return instance

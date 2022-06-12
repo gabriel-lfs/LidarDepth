@@ -2,7 +2,7 @@ import Foundation
 import SceneKit
 import ARKit
 
-extension SCNGeometry {
+public extension SCNGeometry {
     convenience init(geometry: ARMeshGeometry, camera: ARCamera, modelMatrix: simd_float4x4, needTexture: Bool = false) {
         func convertType(type: ARGeometryPrimitiveType) -> SCNGeometryPrimitiveType {
             switch type {

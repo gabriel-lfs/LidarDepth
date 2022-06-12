@@ -1,6 +1,6 @@
 import SceneKit
 
-extension SCNVector3 {
+public extension SCNVector3 {
     func length() -> Float {
         sqrtf(x * x + y * y + z * z)
     }

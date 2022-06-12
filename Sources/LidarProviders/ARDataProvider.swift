@@ -11,19 +11,20 @@ import SceneKit.ModelIO
 import ARKit
 import SwiftUI
 import RealityKit
+import LidarExtensions
 
-final class ARProvider: ARDataReceiver {
+public final class ARProvider: ARDataReceiver {
 
     // Set the original depth size.
     let origDepthWidth = 256
     let origDepthHeight = 192
     
-    let arReceiver: ARReceiver
-    var lastArData: ARData?
-    var arView: ARView
+    public let arReceiver: ARReceiver
+    public var lastArData: ARData?
+    public var arView: ARView
     
     #if DEBUG
-    var debugData: DepthData? = nil
+    public var debugData: DepthData? = nil
     #endif
     
     init() {

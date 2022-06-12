@@ -1,6 +1,6 @@
 import ARKit
 
-extension ARMeshGeometry {
+public extension ARMeshGeometry {
     func vertex(at index: UInt32) -> (Float, Float, Float) {
         assert(vertices.format == MTLVertexFormat.float3, "Expected three floats (twelve bytes) per vertex.")
         let vertexPointer = vertices.buffer.contents().advanced(by: vertices.offset + (vertices.stride * Int(index)))
