@@ -57,7 +57,7 @@ final class ARProvider: ARDataReceiver {
     func onNewARData(arData: ARData) {
         lastArData = arData
         #if DEBUG
-        if !debugData?.capturingMetrics {
+        if !(debugData?.capturingMetrics ?? false) {
             return
         }
         if let depthMap = arData.depthMap {
