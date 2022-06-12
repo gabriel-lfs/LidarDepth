@@ -11,7 +11,6 @@ import SceneKit.ModelIO
 import ARKit
 import SwiftUI
 import RealityKit
-import LidarExtensions
 
 public final class ARProvider: ARDataReceiver {
 
@@ -27,24 +26,24 @@ public final class ARProvider: ARDataReceiver {
     public var debugData: DepthData? = nil
     #endif
     
-    init() {
+    public init() {
         self.arView = ARView()
         self.arReceiver = ARReceiver(arSession: self.arView.session)
         arReceiver.delegate = self
     }
     
     // Start or resume the stream from ARKit.
-    func start() {
+    public func start() {
         arReceiver.start()
     }
     
     // Pause the stream from ARKit.
-    func pause() {
+    public func pause() {
         arReceiver.pause()
     }
     
     #if DEBUG
-    func switchCaptureMetrics() {
+    public func switchCaptureMetrics() {
         debugData?.capturingMetrics.toggle()
     }
     #endif

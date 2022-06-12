@@ -20,22 +20,22 @@ protocol ARDataReceiver: AnyObject {
 //- Tag: ARData
 // Store depth-related AR data.
 public final class ARData {
-    var depthMap: CVPixelBuffer?
-    var anchors: [ARMeshAnchor]?
-    var capturedImage: CVPixelBuffer?
-    var cameraIntrinsics = simd_float3x3()
-    var cameraResolution = CGSize()
+    public var depthMap: CVPixelBuffer?
+    public var anchors: [ARMeshAnchor]?
+    public var capturedImage: CVPixelBuffer?
+    public var cameraIntrinsics = simd_float3x3()
+    public var cameraResolution = CGSize()
 }
 
 // Configure and run an AR session to provide the app with depth-related AR data.
 public final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelegate {
-    var arData = ARData()
+    public var arData = ARData()
     var arSession: ARSession
     weak var delegate: ARDataReceiver?
     
     
     // Configure and start the ARSession.
-    init(arSession: ARSession) {
+    public init(arSession: ARSession) {
         self.arSession = arSession
         super.init()
         self.arSession.delegate = self
@@ -43,7 +43,7 @@ public final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelega
     }
     
     // Configure the ARKit session.
-    func start() {
+    public func start() {
         guard ARWorldTrackingConfiguration.supportsFrameSemantics([.sceneDepth, .smoothedSceneDepth]) else { return }
         // Enable the `sceneDepth` frame semantics.
         let config = ARWorldTrackingConfiguration()
@@ -53,11 +53,11 @@ public final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelega
         arSession.run(config)
     }
     
-    func pause() {
+    public func pause() {
         arSession.pause()
     }
     
-    func createVertexDescriptor(vertices: ARGeometrySource) -> MDLVertexDescriptor {
+    public func createVertexDescriptor(vertices: ARGeometrySource) -> MDLVertexDescriptor {
         let vertexFormat = MTKModelIOVertexFormatFromMetal(vertices.format)
         
         let vertexDescriptor = MDLVertexDescriptor()
@@ -72,7 +72,7 @@ public final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelega
         return MDLMesh(vertexBuffer: vertexBuffer, vertexCount: vertices.count, descriptor: vertexDescriptor, submeshes: submeshes)
     }
     
-    func parseVerticesGeometryToWorldSpace(vertices: ARGeometrySource, geometry: ARMeshGeometry, meshAnchor: ARMeshAnchor) -> (UnsafeMutableRawPointer, Int) {
+    public func parseVerticesGeometryToWorldSpace(vertices: ARGeometrySource, geometry: ARMeshGeometry, meshAnchor: ARMeshAnchor) -> (UnsafeMutableRawPointer, Int) {
         let verticesPointer = vertices.buffer.contents()
         
         for vertexIndex in 0..<vertices.count {
@@ -98,28 +98,28 @@ public final class ARReceiver: NSObject, ARSessionDelegate, SCNSceneExportDelega
         return (verticesPointer, byteCountVertices)
     }
     
-    func createVertexBuffer(vertices: ARGeometrySource, geometry: ARMeshGeometry, meshAnchor: ARMeshAnchor, allocator: MTKMeshBufferAllocator) -> MDLMeshBuffer {
+    public func createVertexBuffer(vertices: ARGeometrySource, geometry: ARMeshGeometry, meshAnchor: ARMeshAnchor, allocator: MTKMeshBufferAllocator) -> MDLMeshBuffer {
         let (verticesPointer, verticesByteCount) = parseVerticesGeometryToWorldSpace(
             vertices: vertices, geometry: geometry, meshAnchor: meshAnchor
         )
         return allocator.newBuffer(with: Data(bytesNoCopy: verticesPointer, count: verticesByteCount, deallocator: .none), type: .vertex)
     }
     
-    func createSubmash(faces: ARGeometryElement, indexBuffer: MDLMeshBuffer) -> MDLSubmesh {
+    public func createSubmash(faces: ARGeometryElement, indexBuffer: MDLMeshBuffer) -> MDLSubmesh {
         let material = MDLMaterial(name: "mat1", scatteringFunction: MDLPhysicallyPlausibleScatteringFunction())
         
         let indexCount = faces.count * faces.indexCountPerPrimitive
         return MDLSubmesh(indexBuffer: indexBuffer, indexCount: indexCount, indexType: .uInt32, geometryType: .triangles, material: material)
     }
     
-    func createIndexBuffer(faces: ARGeometryElement, allocator: MTKMeshBufferAllocator) -> MDLMeshBuffer {
+    public func createIndexBuffer(faces: ARGeometryElement, allocator: MTKMeshBufferAllocator) -> MDLMeshBuffer {
         let facesPointer = faces.buffer.contents()
         let facesByteCount = faces.count * faces.indexCountPerPrimitive * faces.bytesPerIndex
         
         return allocator.newBuffer(with: Data(bytesNoCopy: facesPointer, count: facesByteCount, deallocator: .none), type: .index)
     }
     
-    func createModel() -> SCNScene {
+    public func createModel() -> SCNScene {
         let allocator = MTKMeshBufferAllocator(device: EnvironmentVariables.shared.metalDevice)
         let asset = MDLAsset(bufferAllocator: allocator)
         guard let anchors = self.arData.anchors else { fatalError("No anchors were found") }

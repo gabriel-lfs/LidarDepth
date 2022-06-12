@@ -7,26 +7,26 @@ public class DepthData: ObservableObject {
     private var data = Array(repeating: Array(repeating: Float(-1), count: 192), count: 256)
     private let matrixSize = Float(96*256)
     
-    @Published var topRightCorner: Float32?
-    @Published var topLeftCorner: Float32?
-    @Published var center: Float32?
-    @Published var bottomRightCorner: Float32?
-    @Published var bottomLeftCorner: Float32?
-    @Published var capturingMetrics: Bool = false
+    @Published public var topRightCorner: Float32?
+    @Published public var topLeftCorner: Float32?
+    @Published public var center: Float32?
+    @Published public var bottomRightCorner: Float32?
+    @Published public var bottomLeftCorner: Float32?
+    @Published public var capturingMetrics: Bool = false
 
-    func set(x:Int,y:Int,floatData:Float) {
+    public func set(x:Int,y:Int,floatData:Float) {
          data[x][y]=floatData
     }
     
-    func get(x:Int,y:Int) -> Float {
+    public func get(x:Int,y:Int) -> Float {
         data[x][y]
     }
     
-    func getAll() -> [[Float]] {
+    public func getAll() -> [[Float]] {
         data
     }
     
-    func updateOffsets(depthMap: CVPixelBuffer) {
+    public func updateOffsets(depthMap: CVPixelBuffer) {
         let depthWidth = CVPixelBufferGetWidth(depthMap)
         // Busca Altura da matriz
         let depthHeight = CVPixelBufferGetHeight(depthMap)
@@ -47,7 +47,7 @@ public class DepthData: ObservableObject {
         
     }
     
-    func updateMetrics() {
+    public func updateMetrics() {
         self.bottomLeftCorner = get(x: 0, y: 0)
         self.bottomRightCorner = get(x: 255, y: 0)
         self.center = get(x: 127, y: 95)

@@ -6,7 +6,7 @@ import LidarProviders
 
 //- Tag: ARDepthView
 struct ARDepthView: UIViewRepresentable {
-    var arProvider: LidarProviders.ARProvider
+    public var arProvider: LidarProviders.ARProvider
     #if DEBUG
     @EnvironmentObject public var debugData: LidarProviders.DepthData
     #endif
