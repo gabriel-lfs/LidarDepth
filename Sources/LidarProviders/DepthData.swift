@@ -13,6 +13,8 @@ public class DepthData: ObservableObject {
     @Published public var bottomRightCorner: Float32?
     @Published public var bottomLeftCorner: Float32?
     @Published public var capturingMetrics: Bool = false
+    
+    public init() { }
 
     public func set(x:Int,y:Int,floatData:Float) {
          data[x][y]=floatData

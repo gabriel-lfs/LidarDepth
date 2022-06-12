@@ -13,8 +13,8 @@ public class EnvironmentVariables {
        let instance = EnvironmentVariables()
         return instance
     }()
-    let metalDevice: MTLDevice
-    let dispatchQueue: DispatchQueue
+    public let metalDevice: MTLDevice
+    public let dispatchQueue: DispatchQueue
     
     private init() {
         guard let metalDevice = MTLCreateSystemDefaultDevice() else {
