@@ -49,7 +49,7 @@ public final class ARProvider: ARDataReceiver {
     #endif
     
     
-    func createModel() -> SCNScene {
+    public func createModel() -> SCNScene {
         arReceiver.createModel()
     }
     
