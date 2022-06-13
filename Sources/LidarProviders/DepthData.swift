@@ -50,10 +50,10 @@ public class DepthData: ObservableObject {
     }
     
     public func updateMetrics() {
-        self.bottomLeftCorner = get(x: 0, y: 0)
-        self.bottomRightCorner = get(x: 255, y: 0)
-        self.center = get(x: 127, y: 95)
-        self.topLeftCorner = get(x: 0, y: 191)
+        self.topLeftCorner = get(x: 0, y: 0)
         self.topRightCorner = get(x: 255, y: 0)
+        self.center = get(x: 127, y: 95)
+        self.bottomLeftCorner = get(x: 0, y: 191)
+        self.bottomRightCorner = get(x: 255, y: 0)
     }
 }
